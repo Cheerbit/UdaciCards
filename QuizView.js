@@ -6,6 +6,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import DeckManager from './DeckManager';
+import { clearNotifs, createNotif } from './notificationUtils';
 
 export default class QuizView extends Component {
   constructor(props) {
@@ -18,6 +19,8 @@ export default class QuizView extends Component {
       const { params } = this.props.navigation.state;
       const deck = await DeckManager.getDeck(params.deckTitle);
       this.setState({ deck });
+      await clearNotifs();
+      await createNotif();
     })();
   }
 
@@ -39,6 +42,14 @@ export default class QuizView extends Component {
     this.setState({ showAnswer: false });
   };
 
+  onRestartPress = () => {
+    this.setState({ progress: 0, correctCount: 0, showAnswer: false });
+  };
+
+  onBackPress = () => {
+    this.props.navigation.goBack();
+  };
+
   renderQuizSection = () => {
     return (
       <View style={{ display: 'flex', alignItems: 'center' }}>
@@ -50,6 +61,12 @@ export default class QuizView extends Component {
         </TouchableHighlight>
         <TouchableHighlight style={ styles.button } onPress={ this.onIncorrectPress } underlayColor='lightgray'>
           <Text>Incorrect</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={ styles.button } onPress={ this.onRestartPress } underlayColor='lightgray'>
+          <Text>Restart</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={ styles.button } onPress={ this.onBackPress } underlayColor='lightgray'>
+          <Text>Exit</Text>
         </TouchableHighlight>
       </View>
     );

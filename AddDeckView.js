@@ -16,8 +16,12 @@ export default class AddDeckView extends Component {
   }
 
   onButtonPress = () => {
+    const title = this.state.text;
     DeckManager.saveDeckTitle(this.state.text);
     this.setState({ text: '' });
+    this.props.navigation.navigate('Deck', {
+      deckTitle: title,
+    });
   };
 
   render() {

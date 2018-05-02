@@ -12,6 +12,7 @@ import AddDeckView from './AddDeckView';
 import DeckListView from './DeckListView';
 import DeckView from './DeckView';
 import QuizView from './QuizView';
+import { createNotif } from './notificationUtils'
 
 const DeckStack = StackNavigator({
   DeckList: {
@@ -46,6 +47,10 @@ const Tabs = TabNavigator({
 });
 
 export default class App extends React.Component {
+  componentDidMount() {
+    createNotif();
+  }
+
   render() {
     return (
       <Tabs />
