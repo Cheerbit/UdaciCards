@@ -3,7 +3,9 @@
 # Usage
 
 yarn
+
 yarn run ios // start iOS
+
 yarn run android // start andoid
 
 The app is compatible on iOS as well as android devices.
